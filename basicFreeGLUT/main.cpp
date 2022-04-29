@@ -259,21 +259,25 @@ void Display()
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
 
+    // Lines
+    // Using CULL FACE or not
     if (show_line_new) {
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
     } else {
         glDisable(GL_CULL_FACE);
     }
-
+    // If it Lines or Filled
     if (show_line || show_line_new) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     } else {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
+    // Size of Points if drawn
     glPointSize(10);
 
+    // Top View
     if (top_view_flag) {
         view_matrix = lookAt(
                 glm::vec3(0.0, 8.0f, 0.0), // camera is at the top
@@ -295,7 +299,7 @@ void Display()
                 glm::vec3(0, 1, 0) // keeping the camera up
         );
     }
-    glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, (GLfloat*)&view_matrix[0]);
+    glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, (GLfloat*)&view_matrix[0]); // Update GPU about the view (camera)
 
     light_position_camera = view_matrix * light_position;
 //    light_position_camera = light_position;
@@ -342,12 +346,21 @@ void keyboard(unsigned char key, int x, int y){
     glutPostRedisplay();
 }
 
+/**
+ * Is called when the window is resize
+ * @param width the new width of the window
+ * @param height the new height of the window
+ */
 void Reshape(int width, int height) {
     glViewport(0, 0, width, height);
     aspect = float(width) / float(height);
     glutPostRedisplay();
 }
 
+/**
+ * Default method to use with glutTimerFunc to update things often rotate
+ * @param n witch thing we are updating
+ */
 void rotate(int n) {
     switch (n) {
         case 1:
@@ -355,8 +368,9 @@ void rotate(int n) {
                 rotateAngle += 2.75f;
             }
 
-            glutPostRedisplay();
-            glutTimerFunc(100, rotate, 1);
+            glutPostRedisplay(); // Redraw the screen
+            // restart timer
+            glutTimerFunc(100, rotate, 1); // update forever (not just ones)
             break;
     }
 
@@ -364,26 +378,39 @@ void rotate(int n) {
 
 // ------------------ Main ---------------------------
 
+/**
+ * Start of the program
+ * @param argc number of arguments
+ * @param argv pointer to array of arguments (string (array of char))
+ * @return Exit code (0 is often means no problems)
+ */
 int main(int argc, char** argv){
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA|GLUT_DEPTH);
-    glutInitWindowSize(600, 600);
+    glutInitWindowSize(512, 512);
 
     glutCreateWindow("FreeGLUT - OpenGL - Basic");
 
     if (glewInit()) {
         printf("Unable to initialize GLEW ... exiting\n");
+        return EXIT_FAILURE;
     }
 
 //    ilInit();
-    Initialize();
-    printf("%s\n", glGetString(GL_VERSION));
-    glutDisplayFunc(Display);
-    glutKeyboardFunc(keyboard);
-    glutReshapeFunc(Reshape);
-    glutTimerFunc(100, rotate, 1);
-    glutMainLoop();
+    Initialize(); // Our Initialize method
 
-    return 0;
+    // GL info
+    fprintf(stdout, "Info: GL Vendor : %s\n", glGetString(GL_VENDOR));
+    fprintf(stdout, "Info: GL Renderer : %s\n", glGetString(GL_RENDERER));
+    fprintf(stdout, "Info: GL Version (string) : %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+    fprintf(stdout, "Info: GLSL Version : %s\n", glGetString(GL_VERSION));
+
+    glutDisplayFunc(Display); // Tell glut our display method
+    glutKeyboardFunc(keyboard); // Tell glut our keyboard method
+    glutReshapeFunc(Reshape); // Tell glut our reshape method
+    glutTimerFunc(100, rotate, 1); // First timer for rotate
+    glutMainLoop(); // Start glut infinite loop
+
+    return EXIT_SUCCESS;
 }

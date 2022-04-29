@@ -1,9 +1,27 @@
 # OpenGL-Starting-Place
-OpenGL-Starting-Place
+> OpenGL Starting Place, 
+> A Template to get started making opengl projects and assignments,
+> Mostly using c code in cpp files
 
-I Used EWU Windows computers and My Manjaro Linux Computer for testing.
+I Used [EWU](https://www.ewu.edu/) Windows computers and My [Manjaro](https://manjaro.org/) Linux Computer for testing.
 
-Note the systems have FreeGLUT, GLM, GLEW and, often have DevIL installed
+Note the systems have [FreeGLUT](http://freeglut.sourceforge.net/), [GLM](https://github.com/g-truc/glm), [GLEW](http://glew.sourceforge.net/) and, often have [DevIL](http://openil.sourceforge.net/) installed
 
-# Note using icon from icons8
+On EWU Windows computers uses [Visual Studio](https://visualstudio.microsoft.com/) 2019
+
+On My Manjaro Linux computer I use [CLion](https://www.jetbrains.com/clion/)
+
+## Nvidia GPU on Linux
+
+To use Nvidia GPU insed of integrated GPU on Linux add 
+```shell
+__NV_PRIME_RENDER_OFFLOAD=1;
+__GLX_VENDOR_LIBRARY_NAME=nvidia;
+```
+To environment variables
+
+#### Note using icon from icons8
+
+https://icons8.com/icon/XpIRMmWi64sU/cube
+
 https://icons8.com/license
