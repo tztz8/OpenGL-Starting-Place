@@ -5,8 +5,8 @@ set(executable_name basicFreeGLUT)
 add_executable(${executable_name}
         res/icon/programIcon.rc # for in windows add a icon to the exe file and for freeglut on windows to add a icon to window
         GLM.cpp GLM.h # The Modified GLM lib
-        main.cpp
-        Cube.cpp Cube.h)
+        main.cpp # main (start of our executable)
+        Cube.cpp Cube.h) # any other files (code files and not shaders) for our project
 
 if (UNIX AND NOT APPLE) # Linux
     target_link_libraries(${executable_name} ${IL_LIBRARIES} -lglut -lGL -lGLEW -lGLU)
