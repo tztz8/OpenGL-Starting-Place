@@ -230,10 +230,6 @@ void Initialize(){
     // Create the program for rendering the model
     program = initShaders("shader.vs", "shader.fs");
 
-    if (exitWindowFlag) {
-        return;
-    }
-
     glUseProgram(program);
 
     // attribute indices
@@ -380,7 +376,7 @@ int main(int argc, char** argv){
         printf("Unable to initialize GLEW ... exiting\n");
     }
 
-    ilInit();
+//    ilInit();
     Initialize();
     printf("%s\n", glGetString(GL_VERSION));
     glutDisplayFunc(Display);

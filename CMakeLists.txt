@@ -33,7 +33,7 @@ link_libraries(glfw ${GLFW_LIBRARIES})
 #find_package(DevIL)
 
 # basicGLFW project
-add_subdirectory(baicGLFW)
+add_subdirectory(basicGLFW)
 
 # basicFreeGLUT project
 add_subdirectory(basicFreeGLUT)

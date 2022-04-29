@@ -38,8 +38,7 @@
 
 // h file of this assignment
 #include "main.h"
-#include "yasmin_gl_helpers.h"
-#include "Disc.h"
+#include "Cube.h"
 
 //          --- Filled's ---
 
@@ -471,7 +470,7 @@ int main() {
     fprintf(stdout, "Info: Setup icon for the window\n");
     GLFWimage icons[1];
     icons[0].pixels = stbi_load(
-            "res/icon/eagle.png",
+            "res/icon/cube.png",
             &icons[0].width,
             &icons[0].height,
             nullptr, 4);

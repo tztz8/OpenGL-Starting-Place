@@ -10,20 +10,20 @@ add_executable(${executable_name}
 
 if (UNIX AND NOT APPLE) # Linux
     target_link_libraries(${executable_name} ${IL_LIBRARIES} -lglut -lGL -lGLEW -lGLU)
-    message(NOTICE "Change the Working Directory for ${executable_name} to ${CMAKE_SOURCE_DIR}")
+    message(NOTICE "Change the Working Directory for ${executable_name} to ${CMAKE_SOURCE_DIR}/${executable_name}")
 elseif (MSVC) # Windows using microsoft visual code
     target_link_libraries(${executable_name} ${IL_LIBRARIES} glew32 -lOpenGL32 -lfreeGLUT)
     # using when converting the project from cmake to microsoft visual code project
-    set_target_properties(${executable_name} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
+    set_target_properties(${executable_name} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/${executable_name}")
     # Because microsoft visual code can't change working directory when using cmake these lines copy the files to the build directory so it like it in working directory
     file(COPY shader.fs DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     file(COPY shader.vs DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     file(COPY bunny.obj DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     # Let the user know where the working directory for the program goes
-    message(STATUS "${executable_name} Working Directory at ${CMAKE_SOURCE_DIR}")
+    message(STATUS "${executable_name} Working Directory at ${CMAKE_SOURCE_DIR}/${executable_name}")
 else() # Windows
     target_link_libraries(${executable_name} ${IL_LIBRARIES} glm glew32 -lOpenGL32 -lfreeGLUT)
-    message(NOTICE "Change the Working Directory for ${executable_name} to ${CMAKE_SOURCE_DIR}")
+    message(NOTICE "Change the Working Directory for ${executable_name} to ${CMAKE_SOURCE_DIR}/${executable_name}")
 endif()
 
 # NOTE I do not have a mac to tests with
