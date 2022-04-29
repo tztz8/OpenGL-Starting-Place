@@ -1,0 +1,31 @@
+# set a name for the executable (Expecting the name of the program to be the same as folder the code is in)
+set(executable_name basicFreeGLUT)
+
+# add the executable (also tell it all the src files)
+add_executable(${executable_name}
+        res/icon/programIcon.rc
+        GLM.cpp GLM.h
+        main.cpp
+        Cube.cpp Cube.h)
+
+if (UNIX AND NOT APPLE) # Linux
+    target_link_libraries(${executable_name} ${IL_LIBRARIES} -lglut -lGL -lGLEW -lGLU)
+    message(NOTICE "Change the Working Directory for ${executable_name} to ${CMAKE_SOURCE_DIR}")
+elseif (MSVC) # Windows using microsoft visual code
+    target_link_libraries(${executable_name} ${IL_LIBRARIES} glew32 -lOpenGL32 -lfreeGLUT)
+    # using when converting the project from cmake to microsoft visual code project
+    set_target_properties(${executable_name} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
+    # Because microsoft visual code can't change working directory when using cmake these lines copy the files to the build directory so it like it in working directory
+    file(COPY shader.fs DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(COPY shader.vs DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(COPY bunny.obj DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    # Let the user know where the working directory for the program goes
+    message(STATUS "${executable_name} Working Directory at ${CMAKE_SOURCE_DIR}")
+else() # Windows
+    target_link_libraries(${executable_name} ${IL_LIBRARIES} glm glew32 -lOpenGL32 -lfreeGLUT)
+    message(NOTICE "Change the Working Directory for ${executable_name} to ${CMAKE_SOURCE_DIR}")
+endif()
+
+# NOTE I do not have a mac to tests with
+# external include folders
+target_include_directories(${executable_name} PRIVATE ${IL_INCLUDE_DIR})
