@@ -370,6 +370,7 @@ void keyboard() {
              glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS);
     if (!keyPressed['S'] && keyCurrentlyPressed['S']) {
         show_line_new = !show_line_new;
+        // NOTE that s was press, so it also toggles the show_line flag above
     }
     keyPressed['S'] = keyCurrentlyPressed['S'];
 
