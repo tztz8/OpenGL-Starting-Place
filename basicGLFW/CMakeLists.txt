@@ -3,10 +3,10 @@ set(executable_name basicGLFW)
 
 # add the executable (also tell it all the src files)
 add_executable(${executable_name}
-        res/icon/programIcon.rc
-        GLM.cpp GLM.h
-        main.cpp main.h
-        Cube.cpp Cube.h)
+        res/icon/programIcon.rc # for in windows add a icon to the exe file
+        GLM.cpp GLM.h # The Modified GLM lib
+        main.cpp main.h # main (start of our executable)
+        Cube.cpp Cube.h) # any other files for our project
 
 if (UNIX AND NOT APPLE) # Linux
     target_link_libraries(${executable_name} ${IL_LIBRARIES} glfw -lGL -lGLEW -lGLU)
@@ -27,7 +27,7 @@ elseif (MSVC) # Windows using microsoft visual code
     # Let the user know where the working directory for the program goes
     message(STATUS "${executable_name} Working Directory at ${CMAKE_SOURCE_DIR}/${executable_name}")
 else() # Windows
-    target_link_libraries(${executable_name} ${IL_LIBRARIES} glfw glm glew32 -lOpenGL32)
+    target_link_libraries(${executable_name} ${IL_LIBRARIES} glfw glm glew32 -lOpenGL32 -lfreeGLUT) # FreeGLUT is for Modified GLM
     message(NOTICE "Change the Working Directory for ${executable_name} to ${CMAKE_SOURCE_DIR}/${executable_name}")
 endif()
 
