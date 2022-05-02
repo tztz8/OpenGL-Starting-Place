@@ -1,7 +1,7 @@
 # ![cube](readMeImges/cube.png) OpenGL-Starting-Place
 > OpenGL Starting Place, 
 > A Template to get started making opengl projects and assignments,
-> Mostly using c code in cpp files
+> Mostly using ![c-programming](readMeImges/c-programming.png)c code in ![cpp](readMeImges/cpp.png)cpp files
 
 | freeglut                                           | glfw                                       |
 |----------------------------------------------------|--------------------------------------------|
@@ -12,9 +12,9 @@ I Used [EWU](https://www.ewu.edu/) ![Windows 10](readMeImges/windows.png) Window
 
 Note the systems have [FreeGLUT](http://freeglut.sourceforge.net/), [GLM](https://github.com/g-truc/glm), [GLEW](http://glew.sourceforge.net/) and, often have [DevIL](http://openil.sourceforge.net/) installed
 
-On EWU Windows computers uses [Visual Studio](https://visualstudio.microsoft.com/) 2019
+On EWU Windows computers uses [![visual-studio](readMeImges/visual-studio.png) Visual Studio](https://visualstudio.microsoft.com/) 2019
 
-On My Manjaro Linux computer I use [CLion](https://www.jetbrains.com/clion/)
+On My Manjaro Linux computer I use [![jetbrains](readMeImges/jetbrains.png) CLion](https://www.jetbrains.com/clion/)
 
 ## ![nvidia](readMeImges/nvidia.png) Nvidia GPU on Linux
 
@@ -38,9 +38,9 @@ To environment variables
 
 #### Note using icon from icons8
 
-| Cube                                                                       | CMake                                                                                                                             | nvidia                                                                           | linux                                                                  | windows                                                                                   |
-|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| [![cube](readMeImges/cube.png)](https://icons8.com/icon/XpIRMmWi64sU/cube) | [![cmake](readMeImges/cmake.png)](https://icons8.com/icon/0txwEZ5rJ07z/cmake-a-cross-platform-free-and-open-source-software-tool) | [![nvidia](readMeImges/nvidia.png)](https://icons8.com/icon/yqf95864UzeQ/nvidia) | [![Linux](readMeImges/linux.png)](https://icons8.com/icon/17842/linux) | [![Windows 10](readMeImges/windows.png)](https://icons8.com/icon/OlmjyQ9zkRzF/windows-10) |
+| Cube                                                                       | CMake                                                                                                                             | nvidia                                                                           | linux                                                                  | windows                                                                             | jetbrains                                                                                 | visual-studio                                                                                         | c-programming                                                                                  | cpp                                                                  |
+|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| [![cube](readMeImges/cube.png)](https://icons8.com/icon/XpIRMmWi64sU/cube) | [![cmake](readMeImges/cmake.png)](https://icons8.com/icon/0txwEZ5rJ07z/cmake-a-cross-platform-free-and-open-source-software-tool) | [![nvidia](readMeImges/nvidia.png)](https://icons8.com/icon/yqf95864UzeQ/nvidia) | [![Linux](readMeImges/linux.png)](https://icons8.com/icon/17842/linux) | [![Windows 10](readMeImges/windows.png)](https://icons8.com/icon/108792/windows-10) | [![jetbrains](readMeImges/jetbrains.png)](https://icons8.com/icon/pj15SuHu3Vlt/jetbrains) | [![visual-studio](readMeImges/visual-studio.png)](https://icons8.com/icon/ezj3zaVtImPg/visual-studio) | [![c-programming](readMeImges/c-programming.png)](https://icons8.com/icon/40670/c-programming) | [![cpp](readMeImges/cpp.png)](https://icons8.com/icon/40669/c%2B%2B) |
 
 
 https://icons8.com/license
