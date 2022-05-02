@@ -25,6 +25,8 @@ __GLX_VENDOR_LIBRARY_NAME=nvidia;
 ```
 To environment variables
 
+![Run Configurations in CLion](basicGLFWRunConInClion.png)
+
 #### Note using icon from icons8
 
 https://icons8.com/icon/XpIRMmWi64sU/cube
