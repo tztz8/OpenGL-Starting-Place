@@ -3,6 +3,11 @@
 > A Template to get started making opengl projects and assignments,
 > Mostly using c code in cpp files
 
+| freeglut                               | glfw                           |
+|----------------------------------------|--------------------------------|
+| ![freeGlut Window](freeglutWindow.gif) | ![GLFW Window](glfwWindow.gif) |
+
+
 I Used [EWU](https://www.ewu.edu/) Windows computers and My [Manjaro](https://manjaro.org/) Linux Computer for testing.
 
 Note the systems have [FreeGLUT](http://freeglut.sourceforge.net/), [GLM](https://github.com/g-truc/glm), [GLEW](http://glew.sourceforge.net/) and, often have [DevIL](http://openil.sourceforge.net/) installed
