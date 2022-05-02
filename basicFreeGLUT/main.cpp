@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-err58-cpp"
 /**
  * Main
  * @author Timbre Freeman (tztz8)
@@ -8,8 +10,8 @@
 // Normal Lib
 #include <cstdio>
 #include <cstdlib>
-#include <cstring>
-#include <map>
+//#include <cstring>
+//#include <map>
 
 // Include GLEW
 #include <GL/glew.h>
@@ -41,9 +43,9 @@ bool show_line_new = false;
 bool top_view_flag = false;
 
 // GL loc
-GLuint matrix_loc;
-GLuint projection_matrix_loc;
-GLuint view_matrix_loc;
+GLint matrix_loc;
+GLint projection_matrix_loc;
+GLint view_matrix_loc;
 
 // shader program
 GLuint program;
@@ -59,13 +61,13 @@ glm::vec4 light_position(10.0, 6.0, 8.0, 1.0);
 glm::vec4 light_position_camera;
 
 // uniform indices of light
-//GLuint ambient_loc;
-//GLuint light_source_loc;
-GLuint light_position_loc;
+//GLint ambient_loc;
+//GLint light_source_loc;
+GLint light_position_loc;
 
 // Angle (for this It's for the light)
 GLfloat rotateAngle = 0.0f;
-GLfloat lightRotateAngle = 0.0f;
+//GLfloat lightRotateAngle = 0.0f;
 
 //          --- Methods ---
 
@@ -91,7 +93,7 @@ char* ReadFile(const char* filename) {
     }
 
     fseek(infile, 0, SEEK_END);
-    int len = ftell(infile);
+    int len = static_cast<int>(ftell(infile));
     fseek(infile, 0, SEEK_SET);
     char* source = (char*)malloc(len + 1);
     fread(source, 1, len, infile);
@@ -342,6 +344,8 @@ void keyboard(unsigned char key, int x, int y){
         case 'R':
             stop_rotate = !stop_rotate;
             break;
+        default: ;
+            // Do nothing
     }
     glutPostRedisplay();
 }
@@ -372,6 +376,8 @@ void rotate(int n) {
             // restart timer
             glutTimerFunc(100, rotate, 1); // update forever (not just ones)
             break;
+        default: ;
+            // do nothing
     }
 
 }
@@ -414,3 +420,4 @@ int main(int argc, char** argv){
 
     return EXIT_SUCCESS;
 }
+#pragma clang diagnostic pop

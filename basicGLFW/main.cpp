@@ -61,9 +61,9 @@ bool show_line_new = false;
 bool top_view_flag = false;
 
 // GL loc
-GLuint matrix_loc;
-GLuint projection_matrix_loc;
-GLuint view_matrix_loc;
+GLint matrix_loc;
+GLint projection_matrix_loc;
+GLint view_matrix_loc;
 
 // shader program
 GLuint program;
@@ -79,9 +79,9 @@ glm::vec4 light_position(10.0, 6.0, 8.0, 1.0);
 glm::vec4 light_position_camera;
 
 // uniform indices of light
-//GLuint ambient_loc;
-//GLuint light_source_loc;
-GLuint light_position_loc;
+//GLint ambient_loc;
+//GLint light_source_loc;
+GLint light_position_loc;
 
 // Angle
 GLfloat rotateAngle = 0.0f;
@@ -110,7 +110,7 @@ char* ReadFile(const char* filename) {
     }
 
     fseek(infile, 0, SEEK_END);
-    int len = ftell(infile);
+    int len = static_cast<int>(ftell(infile));
     fseek(infile, 0, SEEK_SET);
     char* source = (char*)malloc(len + 1);
     fread(source, 1, len, infile);

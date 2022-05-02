@@ -97,7 +97,7 @@ void createCube()
 
     glBindBuffer(GL_ARRAY_BUFFER, handle[1]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
-    glVertexAttribPointer((GLuint)1, 4, GL_FLOAT, GL_FALSE, 0, 0);
+    glVertexAttribPointer((GLuint)1, 4, GL_FLOAT, GL_FALSE, 0, nullptr);
     glEnableVertexAttribArray(1);  // Vertex color
 
     glBindBuffer(GL_ARRAY_BUFFER, handle[2]);
