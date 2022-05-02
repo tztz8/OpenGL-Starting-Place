@@ -113,6 +113,10 @@ char* ReadFile(const char* filename) {
     int len = static_cast<int>(ftell(infile));
     fseek(infile, 0, SEEK_SET);
     char* source = (char*)malloc(len + 1);
+    if (source == nullptr) {
+        printf("Unable to get memory to read file %s\n", filename);
+        return nullptr;
+    }
     fread(source, 1, len, infile);
     fclose(infile);
     source[len] = 0;
@@ -154,6 +158,11 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
 
         char* log = (char*)malloc(len + 1);
 
+        if (log == nullptr) {
+            printf("Was not able to get memory to get error code for compiled shader\n");
+            exit(EXIT_FAILURE);
+        }
+
         glGetShaderInfoLog(v, len, &len, log);
 
         printf("Vertex Shader compilation failed: %s\n", log);
@@ -171,6 +180,12 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
         GLsizei len;
         glGetShaderiv(f, GL_INFO_LOG_LENGTH, &len);
         char* log = (char*)malloc(len + 1);
+
+        if (log == nullptr) {
+            printf("Was not able to get memory to get error code for compiled shader\n");
+            exit(EXIT_FAILURE);
+        }
+
         glGetShaderInfoLog(f, len, &len, log);
         printf("Vertex Shader compilation failed: %s\n", log);
         free(log);
@@ -190,6 +205,12 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
         GLsizei len;
         glGetProgramiv(p, GL_INFO_LOG_LENGTH, &len);
         char* log = (char*)malloc(len + 1);
+
+        if (log == nullptr) {
+            printf("Was not able to get memory to get error code for compiled shader\n");
+            exit(EXIT_FAILURE);
+        }
+
         glGetProgramInfoLog(p, len, &len, log);
         printf("Shader linking failed: %s\n", log);
         free(log);
