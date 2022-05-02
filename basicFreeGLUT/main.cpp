@@ -201,13 +201,13 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
 
 }
 
-/**
- * Load Texture
- * @note code from Yasmin and commit and some modification make by Timbre Freeman
- * @note (used devil to load the image)
- * @param filename path to image file
- * @return GL Texture ID
- */
+///**
+// * Load Texture
+// * @note code from Yasmin and commit and some modification make by Timbre Freeman
+// * @note (used devil to load the image)
+// * @param filename path to image file
+// * @return GL Texture ID
+// */
 //unsigned int loadTexture(const char* filename) {
 //
 //    ILboolean success;
@@ -342,7 +342,12 @@ void Display()
     glutSwapBuffers();
 }
 
-
+/**
+ * called when key on the keyboard is pressed
+ * @param key the key being pressed
+ * @param x x of "mouse location in window relative coordinates when the key was pressed"
+ * @param y y of "mouse location in window relative coordinates when the key was pressed"
+ */
 void keyboard(unsigned char key, int x, int y){
 
     switch (key){

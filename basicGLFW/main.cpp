@@ -224,13 +224,13 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
 
 }
 
-/**
- * Load Texture
- * @note code from Yasmin and commit and some modification make by Timbre Freeman
- * @note (used devil to load the image)
- * @param filename path to image file
- * @return GL Texture ID
- */
+///**
+// * Load Texture
+// * @note code from Yasmin and commit and some modification make by Timbre Freeman
+// * @note (used devil to load the image)
+// * @param filename path to image file
+// * @return GL Texture ID
+// */
 //unsigned int loadTexture(const char* filename) {
 //
 //    ILboolean success;
@@ -425,7 +425,6 @@ void windowSizeChangeCallback([[maybe_unused]] GLFWwindow* thisWindow, int width
 
 /**
  * Update Angle on each frame
- * @note was the timer in Assignment 4
  * @param deltaTime the time between frames
  */
 void updateAngle(GLfloat deltaTime) {
@@ -526,7 +525,7 @@ int main() {
     fprintf(stdout, "Info: GLSL Version : %s\n", glGetString(GL_VERSION));
 
 
-    // Ensure we can capture the escape key being pressed below
+    // Ensure we can capture the escape key being pressed below and any other keys
     fprintf(stdout, "Info: Setup user input mode\n");
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
