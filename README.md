@@ -1,4 +1,4 @@
-# OpenGL-Starting-Place
+# ![cube](basicGLFW/res/icon/cube.png) OpenGL-Starting-Place
 > OpenGL Starting Place, 
 > A Template to get started making opengl projects and assignments,
 > Mostly using c code in cpp files
@@ -27,7 +27,18 @@ To environment variables
 
 ![Run Configurations in CLion](basicGLFWRunConInClion.png)
 
+## Documentation
+
+| OpenGL/GLSL                                                                                                          | GLFW                                      | freeGLUT                                                                 |
+|----------------------------------------------------------------------------------------------------------------------|-------------------------------------------|--------------------------------------------------------------------------|
+| [OpenGL (unofficial)](https://docs.gl/)                                                                              | [GLFW](https://www.glfw.org/docs/latest/) | [freeGLUT](http://freeglut.sourceforge.net/docs/api.php)                 |
+| [OpenGL (4.5 Reference Pages)](https://www.khronos.org/registry/OpenGL-Refpages/gl4/)                                |                                           | [GLUT](https://www.opengl.org/resources/libraries/glut/spec3/spec3.html) |
+| [OpenGL (opengl45-quick-reference-card)(Not quick)](https://www.khronos.org/files/opengl45-quick-reference-card.pdf) |                                           |                                                                          |
+
+
 #### Note using icon from icons8
+
+![cube](basicGLFW/res/icon/cube.png)
 
 https://icons8.com/icon/XpIRMmWi64sU/cube
 
