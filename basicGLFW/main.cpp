@@ -37,7 +37,6 @@
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 
 // h file of this assignment
-#include "main.h"
 #include "Cube.h"
 
 //          --- Filled's ---
@@ -85,6 +84,10 @@ GLint light_position_loc;
 
 // Angle
 GLfloat rotateAngle = 0.0f;
+
+//          --- Pre-Def Methods ---
+
+void tellWindowToClose();
 
 //          --- Methods ---
 

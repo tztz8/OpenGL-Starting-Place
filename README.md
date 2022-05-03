@@ -16,6 +16,54 @@ On EWU Windows computers uses [![visual-studio](readMeImges/visual-studio.png) V
 
 On My Manjaro Linux computer I use [![jetbrains](readMeImges/jetbrains.png) CLion](https://www.jetbrains.com/clion/)
 
+## Files
+
+### C and C++
+![c-programming](readMeImges/c-programming.png)
+![cpp](readMeImges/cpp.png)
+
+#### [Main.cpp](basicGLFW/main.cpp)
+
+> also in basicFreeGLUT [main.cpp](basicFreeGLUT/main.cpp)
+
+The start of the program and most of the code will be done here.
+
+#### [Cube.cpp](basicGLFW/Cube.cpp) and [Cube.h](basicGLFW/Cube.h)
+
+> also in basicFreeGLUT [Cube.cpp](basicFreeGLUT/Cube.cpp) and [Cube.h](basicFreeGLUT/Cube.h)
+
+Has methods to set up cube and draw cube
+
+### OpenGL Shaders
+![openGL](readMeImges/OpenGL_RGB_June16.svg)
+
+#### Vertex Shader ([shader.vs](basicGLFW/shader.vs))
+
+> also in basicFreeGLUT [shader.vs](basicFreeGLUT/shader.vs)
+
+Vertex shader (using [GLSL Support Plugin on CLion](https://plugins.jetbrains.com/plugin/6993-glsl-support))
+
+#### Fragment Shader ([shader.fs](basicGLFW/shader.fs))
+
+> also in basicFreeGLUT [shader.vs](basicFreeGLUT/shader.fs)
+
+Fragment shader (using [GLSL Support Plugin on CLion](https://plugins.jetbrains.com/plugin/6993-glsl-support))
+
+### CMake
+![cmake](readMeImges/cmake.png)
+
+#### Main Cmake file [CMakeLists.txt](CMakeLists.txt)
+
+Set up the project, get libraries ready and finally call each excitable CMake File
+
+#### basicGLFW [CMakeLists.txt](basicGLFW/CMakeLists.txt)
+
+Set up the excitable and link it to the libraries.
+
+#### basicFreeGLUT [CMakeLists.txt](basicFreeGLUT/CMakeLists.txt)
+
+Set up the excitable and link it to the libraries.
+
 ## ![nvidia](readMeImges/nvidia.png) Nvidia GPU on Linux
 
 To use Nvidia GPU insed of integrated GPU on Linux add 
