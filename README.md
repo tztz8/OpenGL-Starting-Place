@@ -1,6 +1,6 @@
 # ![cube](readMeImges/cube.png) OpenGL-Starting-Place
-> OpenGL Starting Place, 
-> A Template to get started making opengl projects and assignments,
+> ![OpenGL](readMeImges/OpenGL_LogoBug_32px_Nov17.png)OpenGL Starting Place, 
+> A Template to get started making ![OpenGL](readMeImges/OpenGL_LogoBug_32px_Nov17.png)opengl projects and assignments,
 > Mostly using ![c-programming](readMeImges/c-programming.png)c code in ![cpp](readMeImges/cpp.png)cpp files
 
 | freeglut                                           | glfw                                       |
@@ -35,7 +35,7 @@ The start of the program and most of the code will be done here.
 Has methods to set up cube and draw cube
 
 ### OpenGL Shaders
-![openGL](readMeImges/OpenGL_RGB_June16.svg)
+![openGL](readMeImges/OpenGL_LogoBug_32px_Nov17.png)
 
 #### Vertex Shader ([shader.vs](basicGLFW/shader.vs))
 
@@ -77,7 +77,7 @@ To environment variables
 
 ## Documentation
 
-| ![openGL](readMeImges/OpenGL_RGB_June16.svg)OpenGL/GLSL                                                              | GLFW                                      | freeGLUT                                                                 | ![cmake](readMeImges/cmake.png) cmake          |
+| ![openGL](readMeImges/OpenGL_100px_June16.png)<br/>OpenGL/GLSL                                                       | GLFW                                      | freeGLUT                                                                 | ![cmake](readMeImges/cmake.png)<br/>cmake      |
 |----------------------------------------------------------------------------------------------------------------------|-------------------------------------------|--------------------------------------------------------------------------|------------------------------------------------|
 | [OpenGL (unofficial)](https://docs.gl/)                                                                              | [GLFW](https://www.glfw.org/docs/latest/) | [freeGLUT](http://freeglut.sourceforge.net/docs/api.php)                 | [ cmake](https://cmake.org/cmake/help/latest/) |
 | [OpenGL (4.5 Reference Pages)](https://www.khronos.org/registry/OpenGL-Refpages/gl4/)                                |                                           | [GLUT](https://www.opengl.org/resources/libraries/glut/spec3/spec3.html) |                                                |

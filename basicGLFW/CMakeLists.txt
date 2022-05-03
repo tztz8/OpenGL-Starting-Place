@@ -5,7 +5,7 @@ set(executable_name basicGLFW)
 add_executable(${executable_name}
         res/icon/programIcon.rc # for in windows add a icon to the exe file
         GLM.cpp GLM.h # The Modified GLM lib
-        main.cpp main.h # main (start of our executable)
+        main.cpp # main (start of our executable)
         Cube.cpp Cube.h) # any other files (code files and not shaders) for our project
 
 if (UNIX AND NOT APPLE) # Linux
