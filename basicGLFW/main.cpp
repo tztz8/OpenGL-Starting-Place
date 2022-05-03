@@ -2,7 +2,6 @@
 #pragma ide diagnostic ignored "cert-err58-cpp"
 /**
  * Main
- * @author Timbre Freeman (tztz8)
  */
 
 //          --- Libraries ---
