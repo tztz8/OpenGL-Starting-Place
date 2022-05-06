@@ -7,14 +7,22 @@
 |----------------------------------------------------|--------------------------------------------|
 | ![freeGlut Window](readMeImges/freeglutWindow.gif) | ![GLFW Window](readMeImges/glfwWindow.gif) |
 
+There is a [discussions](https://github.com/tztz8/OpenGL-Starting-Place/discussions) available for this repo at https://github.com/tztz8/OpenGL-Starting-Place/discussions
 
-I Used [EWU](https://www.ewu.edu/) ![Windows 10](readMeImges/windows.png) Windows computers and My [Manjaro](https://manjaro.org/) ![Linux](readMeImges/linux.png)Linux Computer for testing.
+## Systems I use for testing
+
+I Used [EWU](https://www.ewu.edu/) ![Windows 10](readMeImges/windows.png) Windows computers and My [Manjaro](https://manjaro.org/) ![Linux](readMeImges/linux.png)Linux Computer and a ![VMware Workstation Player](readMeImges/vmware-workstation-player.png) VMware ![Windows 10](readMeImges/windows.png) Windows  for testing.
 
 Note the systems have [FreeGLUT](http://freeglut.sourceforge.net/), [GLM](https://github.com/g-truc/glm), [GLEW](http://glew.sourceforge.net/) and, often have [DevIL](http://openil.sourceforge.net/) installed
 
 On EWU Windows computers uses [![visual-studio](readMeImges/visual-studio.png) Visual Studio](https://visualstudio.microsoft.com/) 2019
+> I do add [GLSL language integration](https://marketplace.visualstudio.com/items?itemName=DanielScherzer.GLSL) extension when I use school computer
 
 On My Manjaro Linux computer I use [![jetbrains](readMeImges/jetbrains.png) CLion](https://www.jetbrains.com/clion/)
+> I do have [GLSL Support](https://plugins.jetbrains.com/plugin/6993-glsl-support/) plugin, but the plugin does crash often but still works
+
+On VMware Windows computers I use [![visual-studio](readMeImges/visual-studio.png) Visual Studio](https://visualstudio.microsoft.com/) 2019
+> I do have [GLSL language integration](https://marketplace.visualstudio.com/items?itemName=DanielScherzer.GLSL) extension
 
 ## Files
 
@@ -41,13 +49,17 @@ Has methods to set up cube and draw cube
 
 > also in basicFreeGLUT [shader.vert](basicFreeGLUT/shader.vert)
 
-Vertex shader (using [GLSL Support Plugin on CLion](https://plugins.jetbrains.com/plugin/6993-glsl-support))
+Vertex shader (using [GLSL Support Plugin on CLion](https://plugins.jetbrains.com/plugin/6993-glsl-support) and [GLSL language integration extension on Visual Studio](https://marketplace.visualstudio.com/items?itemName=DanielScherzer.GLSL))
+
+Called for each vertex
 
 #### Fragment Shader ([shader.frag](basicGLFW/shader.frag))
 
 > also in basicFreeGLUT [shader.frag](basicFreeGLUT/shader.frag)
 
-Fragment shader (using [GLSL Support Plugin on CLion](https://plugins.jetbrains.com/plugin/6993-glsl-support))
+Fragment shader (using [GLSL Support Plugin on CLion](https://plugins.jetbrains.com/plugin/6993-glsl-support) and [GLSL language integration extension on Visual Studio](https://marketplace.visualstudio.com/items?itemName=DanielScherzer.GLSL))
+
+Called for each pixel
 
 ### CMake
 ![cmake](readMeImges/cmake.png)
@@ -86,9 +98,8 @@ To environment variables
 
 #### Note using icon from icons8
 
-| Cube                                                                       | CMake                                                                                                                             | nvidia                                                                           | linux                                                                  | windows                                                                             | jetbrains                                                                                 | visual-studio                                                                                         | c-programming                                                                                  | cpp                                                                  |
-|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
-| [![cube](readMeImges/cube.png)](https://icons8.com/icon/XpIRMmWi64sU/cube) | [![cmake](readMeImges/cmake.png)](https://icons8.com/icon/0txwEZ5rJ07z/cmake-a-cross-platform-free-and-open-source-software-tool) | [![nvidia](readMeImges/nvidia.png)](https://icons8.com/icon/yqf95864UzeQ/nvidia) | [![Linux](readMeImges/linux.png)](https://icons8.com/icon/17842/linux) | [![Windows 10](readMeImges/windows.png)](https://icons8.com/icon/108792/windows-10) | [![jetbrains](readMeImges/jetbrains.png)](https://icons8.com/icon/pj15SuHu3Vlt/jetbrains) | [![visual-studio](readMeImges/visual-studio.png)](https://icons8.com/icon/ezj3zaVtImPg/visual-studio) | [![c-programming](readMeImges/c-programming.png)](https://icons8.com/icon/40670/c-programming) | [![cpp](readMeImges/cpp.png)](https://icons8.com/icon/40669/c%2B%2B) |
-
+| Cube                                                                       | CMake                                                                                                                             | nvidia                                                                           | linux                                                                  | windows                                                                             | jetbrains                                                                                 | visual-studio                                                                                         | c-programming                                                                                  | cpp                                                                  | vmware player                                                                                                                             |
+|----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| [![cube](readMeImges/cube.png)](https://icons8.com/icon/XpIRMmWi64sU/cube) | [![cmake](readMeImges/cmake.png)](https://icons8.com/icon/0txwEZ5rJ07z/cmake-a-cross-platform-free-and-open-source-software-tool) | [![nvidia](readMeImges/nvidia.png)](https://icons8.com/icon/yqf95864UzeQ/nvidia) | [![Linux](readMeImges/linux.png)](https://icons8.com/icon/17842/linux) | [![Windows 10](readMeImges/windows.png)](https://icons8.com/icon/108792/windows-10) | [![jetbrains](readMeImges/jetbrains.png)](https://icons8.com/icon/pj15SuHu3Vlt/jetbrains) | [![visual-studio](readMeImges/visual-studio.png)](https://icons8.com/icon/ezj3zaVtImPg/visual-studio) | [![c-programming](readMeImges/c-programming.png)](https://icons8.com/icon/40670/c-programming) | [![cpp](readMeImges/cpp.png)](https://icons8.com/icon/40669/c%2B%2B) | [![VMware Workstation Player](readMeImges/vmware-workstation-player.png)](https://icons8.com/icon/ICsxwkCBZGfj/vmware-workstation-player) |
 
 https://icons8.com/license
