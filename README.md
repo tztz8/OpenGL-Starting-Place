@@ -37,15 +37,15 @@ Has methods to set up cube and draw cube
 ### OpenGL Shaders
 ![openGL](readMeImges/OpenGL_LogoBug_32px_Nov17.png)
 
-#### Vertex Shader ([shader.vs](basicGLFW/shader.vs))
+#### Vertex Shader ([shader.vert](basicGLFW/shader.vert))
 
-> also in basicFreeGLUT [shader.vs](basicFreeGLUT/shader.vs)
+> also in basicFreeGLUT [shader.vert](basicFreeGLUT/shader.vert)
 
 Vertex shader (using [GLSL Support Plugin on CLion](https://plugins.jetbrains.com/plugin/6993-glsl-support))
 
-#### Fragment Shader ([shader.fs](basicGLFW/shader.fs))
+#### Fragment Shader ([shader.frag](basicGLFW/shader.frag))
 
-> also in basicFreeGLUT [shader.vs](basicFreeGLUT/shader.fs)
+> also in basicFreeGLUT [shader.frag](basicFreeGLUT/shader.frag)
 
 Fragment shader (using [GLSL Support Plugin on CLion](https://plugins.jetbrains.com/plugin/6993-glsl-support))
 

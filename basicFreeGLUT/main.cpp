@@ -250,7 +250,7 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
  */
 void Initialize(){
     // Create the program for rendering the model
-    program = initShaders("shader.vs", "shader.fs");
+    program = initShaders("shader.vert", "shader.frag");
 
     glUseProgram(program);
 

@@ -277,7 +277,7 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
  */
 void Initialize(){
 
-    program = initShaders("shader.vs", "shader.fs");
+    program = initShaders("shader.vert", "shader.frag");
 
     if (exitWindowFlag) {
         return;

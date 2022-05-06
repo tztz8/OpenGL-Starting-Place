@@ -16,8 +16,8 @@ elseif (MSVC) # Windows using microsoft visual code
     # using when converting the project from cmake to microsoft visual code project
     set_target_properties(${executable_name} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/${executable_name}")
     # Because microsoft visual code can't change working directory when using cmake these lines copy the files to the build directory so it like it in working directory
-    file(COPY shader.fs DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
-    file(COPY shader.vs DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(COPY shader.frag DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(COPY shader.vert DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     file(COPY bunny.obj DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     # Let the user know where the working directory for the program goes
     message(STATUS "${executable_name} Working Directory at ${CMAKE_SOURCE_DIR}/${executable_name}")
