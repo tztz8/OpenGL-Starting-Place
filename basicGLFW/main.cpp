@@ -77,8 +77,6 @@ glm::vec4 light_position(10.0, 6.0, 8.0, 1.0);
 glm::vec4 light_position_camera;
 
 // uniform indices of light
-//GLint ambient_loc;
-//GLint light_source_loc;
 GLint light_position_loc;
 
 // Angle
@@ -276,13 +274,15 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
  * Called set setup open gl things (for example making the models)
  */
 void Initialize(){
-
+    // Create the program for rendering the model
     program = initShaders("shader.vert", "shader.frag");
 
+    // Check if making the shader work or not // This is not in FreeGLUT as does need an exit flag
     if (exitWindowFlag) {
         return;
     }
 
+    // Use the shader program
     glUseProgram(program);
 
     // attribute indices
@@ -290,89 +290,94 @@ void Initialize(){
     view_matrix_loc = glGetUniformLocation(program, "view_matrix");
     matrix_loc = glGetUniformLocation(program, "model_matrix");
     projection_matrix_loc = glGetUniformLocation(program, "projection_matrix");
-
-    glUniformMatrix4fv(matrix_loc, 1, GL_FALSE, (GLfloat*)&model_matrix[0]);
-    projection_matrix = glm::perspective(glm::radians(90.0f), aspect, 1.0f, 80.0f);
-    glUniformMatrix4fv(projection_matrix_loc, 1, GL_FALSE, (GLfloat*)&projection_matrix[0]);
-
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-
     light_position_loc = glGetUniformLocation(program, "LightPosition");
 
+    // Set Clear Color (background color)
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+    // setup Cube
     createCube();
 }
 
 /**
  * Called for every frame to draw on the screen
  */
-void Display()
-{
+void Display() {
     // Clear
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
 
+    // Show Lines
+    // Tell GL to use GL_CULL_FACE
     if (show_line_new) {
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
     } else {
         glDisable(GL_CULL_FACE);
     }
-
+    // Tell to fill or use Lines (not to fill) for the triangles
     if (show_line || show_line_new) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     } else {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
+    // Set Point Size
     glPointSize(10);
 
-    if (top_view_flag) {
+    // Set view matrix
+    float rotateAngleRadians = glm::radians(rotateAngle);
+    if (top_view_flag) { // Top View
         view_matrix = lookAt(
                 glm::vec3(0.0, 8.0f, 0.0), // camera is at the top
                 glm::vec3(0, 0, 0), // look at the center
                 glm::vec3(
-                        8.0f * sinf(glm::radians(rotateAngle)),
+                        sinf(rotateAngleRadians),
                         0.0f,
-                        8.0f * cosf(glm::radians(rotateAngle))
-                ) // rotating the camera around
+                        cosf(rotateAngleRadians)
+                ) // rotating the camera
         );
-    } else {
+    } else { // Normal View
         view_matrix = lookAt(
                 glm::vec3(
-                        8.0f * sinf(glm::radians(rotateAngle)),
+                        8.0f * sinf(rotateAngleRadians),
                         3.0f,
-                        8.0f * cosf(glm::radians(rotateAngle))
-                ), // Moving around the center in a cerical
+                        8.0f * cosf(rotateAngleRadians)
+                ), // Moving around the center in a Center
                 glm::vec3(0, 0, 0), // look at the center
                 glm::vec3(0, 1, 0) // keeping the camera up
         );
     }
+    // Let opengl know about the change
     glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, (GLfloat*)&view_matrix[0]);
 
+    // update light_position_camera base off on both light position and view matrix
     light_position_camera = view_matrix * light_position;
-//    light_position_camera = light_position;
     glUniform4fv(light_position_loc, 1, (GLfloat*)&light_position_camera[0]);
 
+    // update projection matrix (useful when the window resize)
     projection_matrix = glm::perspective(glm::radians(45.0f), aspect, 0.3f, 100.0f);
     glUniformMatrix4fv(projection_matrix_loc, 1, GL_FALSE, (GLfloat*)&projection_matrix[0]);
 
     // Draw things
+
+    // Draw Cube
     model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(2.0f, 2.0f, 2.0f));
     glUniformMatrix4fv(matrix_loc, 1, GL_FALSE, (GLfloat*)&model_matrix[0]);
-
     drawCube();
 
     // End of Draw things
     glFlush();
 }
 
+// ------------------ This is where the code between GLFW and FreeGLUT are Different ---------------------------
+
 std::map<char, bool> keyPressed; // key was pressed on last frame
 std::map<char, bool> keyCurrentlyPressed; // key is pressed this frame
 
 /**
  * On each frame it check for user input to toggle a flag
- * @return if the program got a exit request from the user
  */
 void keyboard() {
     keyCurrentlyPressed['q'] = glfwGetKey(window, GLFW_KEY_Q ) == GLFW_PRESS;
@@ -457,7 +462,6 @@ int main() {
     fprintf(stdout, "Info: Initialise GLFW\n");
     if (!glfwInit()) {
         fprintf(stderr,"Error: initializing GLFW failed\n");
-//        getchar(); // so it will wait for users input
         return EXIT_FAILURE;
     }
 
@@ -476,7 +480,6 @@ int main() {
     window = glfwCreateWindow(512, 512, orginal_title, nullptr, nullptr);
     if (window == nullptr) {
         fprintf(stderr,"Error: Failed to open GLFW window\n");
-//        getchar(); // so it will wait for users input
         glfwTerminate();
         return EXIT_FAILURE;
     }
@@ -512,7 +515,6 @@ int main() {
     fprintf(stdout,"Info: Initialize GLEW\n");
     if (glewInit() != GLEW_OK) {
         fprintf(stderr, "Error: Failed to initialize GLEW\n");
-//        getchar();
         glfwTerminate();
         return EXIT_FAILURE;
     }

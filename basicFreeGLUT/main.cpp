@@ -9,8 +9,6 @@
 // Normal Lib
 #include <cstdio>
 #include <cstdlib>
-//#include <cstring>
-//#include <map>
 
 // Include GLEW
 #include <GL/glew.h>
@@ -60,13 +58,10 @@ glm::vec4 light_position(10.0, 6.0, 8.0, 1.0);
 glm::vec4 light_position_camera;
 
 // uniform indices of light
-//GLint ambient_loc;
-//GLint light_source_loc;
 GLint light_position_loc;
 
 // Angle (for this It's for the light)
 GLfloat rotateAngle = 0.0f;
-//GLfloat lightRotateAngle = 0.0f;
 
 //          --- Methods ---
 
@@ -252,6 +247,7 @@ void Initialize(){
     // Create the program for rendering the model
     program = initShaders("shader.vert", "shader.frag");
 
+    // Use the shader program
     glUseProgram(program);
 
     // attribute indices
@@ -259,15 +255,12 @@ void Initialize(){
     view_matrix_loc = glGetUniformLocation(program, "view_matrix");
     matrix_loc = glGetUniformLocation(program, "model_matrix");
     projection_matrix_loc = glGetUniformLocation(program, "projection_matrix");
-
-    glUniformMatrix4fv(matrix_loc, 1, GL_FALSE, (GLfloat*)&model_matrix[0]);
-    projection_matrix = glm::perspective(glm::radians(90.0f), aspect, 1.0f, 80.0f);
-    glUniformMatrix4fv(projection_matrix_loc, 1, GL_FALSE, (GLfloat*)&projection_matrix[0]);
-
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-
     light_position_loc = glGetUniformLocation(program, "LightPosition");
 
+    // Set Clear Color (background color)
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+    // setup Cube
     createCube();
 }
 
@@ -281,15 +274,15 @@ void Display()
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
 
-    // Lines
-    // Using CULL FACE or not
+    // Show Lines
+    // Tell GL to use GL_CULL_FACE
     if (show_line_new) {
         glEnable(GL_CULL_FACE);
         glCullFace(GL_BACK);
     } else {
         glDisable(GL_CULL_FACE);
     }
-    // If it Lines or Filled
+    // Tell to fill or use Lines (not to fill) for the triangles
     if (show_line || show_line_new) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     } else {
@@ -299,47 +292,51 @@ void Display()
     // Size of Points if drawn
     glPointSize(10);
 
-    // Top View
-    if (top_view_flag) {
+    // Set view matrix
+    float rotateAngleRadians = glm::radians(rotateAngle);
+    if (top_view_flag) { // Top View
         view_matrix = lookAt(
                 glm::vec3(0.0, 8.0f, 0.0), // camera is at the top
                 glm::vec3(0, 0, 0), // look at the center
                 glm::vec3(
-                        8.0f * sinf(glm::radians(rotateAngle)),
+                        sinf(rotateAngleRadians),
                         0.0f,
-                        8.0f * cosf(glm::radians(rotateAngle))
-                ) // rotating the camera around
+                        cosf(rotateAngleRadians)
+                ) // rotating the camera
         );
-    } else {
+    } else { // Normal View
         view_matrix = lookAt(
                 glm::vec3(
-                        8.0f * sinf(glm::radians(rotateAngle)),
+                        8.0f * sinf(rotateAngleRadians),
                         3.0f,
-                        8.0f * cosf(glm::radians(rotateAngle))
-                ), // Moving around the center in a cerical
+                        8.0f * cosf(rotateAngleRadians)
+                ), // Moving around the center in a Center
                 glm::vec3(0, 0, 0), // look at the center
                 glm::vec3(0, 1, 0) // keeping the camera up
         );
     }
-    glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, (GLfloat*)&view_matrix[0]); // Update GPU about the view (camera)
+    // Let opengl know about the change
+    glUniformMatrix4fv(view_matrix_loc, 1, GL_FALSE, (GLfloat*)&view_matrix[0]);
 
+    // update light_position_camera base off on both light position and view matrix
     light_position_camera = view_matrix * light_position;
-//    light_position_camera = light_position;
     glUniform4fv(light_position_loc, 1, (GLfloat*)&light_position_camera[0]);
 
+    // update projection matrix (useful when the window resize)
     projection_matrix = glm::perspective(glm::radians(45.0f), aspect, 0.3f, 100.0f);
     glUniformMatrix4fv(projection_matrix_loc, 1, GL_FALSE, (GLfloat*)&projection_matrix[0]);
 
     // Draw things
     model_matrix = glm::scale(glm::mat4(1.0f), glm::vec3(2.0f, 2.0f, 2.0f));
     glUniformMatrix4fv(matrix_loc, 1, GL_FALSE, (GLfloat*)&model_matrix[0]);
-
     drawCube();
 
     // End of Draw things
     glFlush();
-    glutSwapBuffers();
+    glutSwapBuffers(); // This line is different in glfw and in main instead
 }
+
+// ------------------ This is where the code between GLFW and FreeGLUT are Vary Different ---------------------------
 
 /**
  * called when key on the keyboard is pressed
@@ -440,7 +437,7 @@ int main(int argc, char** argv){
     glutDisplayFunc(Display); // Tell glut our display method
     glutKeyboardFunc(keyboard); // Tell glut our keyboard method
     glutReshapeFunc(Reshape); // Tell glut our reshape method
-    glutTimerFunc(100, rotate, 1); // First timer for rotate
+    glutTimerFunc(100, rotate, 1); // First timer for rotate camera
     glutMainLoop(); // Start glut infinite loop
 
     return EXIT_SUCCESS;
