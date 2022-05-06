@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <map>
+#include <cctype>
 
 // Include GLEW
 #include <GL/glew.h>
@@ -373,8 +374,20 @@ void Display() {
 
 // ------------------ This is where the code between GLFW and FreeGLUT are Different ---------------------------
 
-std::map<char, bool> keyPressed; // key was pressed on last frame
-std::map<char, bool> keyCurrentlyPressed; // key is pressed this frame
+/**
+ * key was pressed on last frame <br>
+ *  - Key is char <br>
+ *  - Value is bool
+ * @note when key is uppercase it use for normally Special cases like using shift or up arrow
+ */
+std::map<char, bool> keyPressed;
+/**
+ * key is pressed this frame <br>
+ *  - Key is char <br>
+ *  - Value is bool
+ * @note when key is uppercase it use for normally Special cases like using shift or up arrow
+ */
+std::map<char, bool> keyCurrentlyPressed;
 
 /**
  * On each frame it check for user input to toggle a flag
@@ -532,6 +545,19 @@ int main() {
     // Ensure we can capture the escape key being pressed below and any other keys
     fprintf(stdout, "Info: Setup user input mode\n");
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+
+    // List Keys being used
+    fprintf(stdout, "Info: Current keys being used\n");
+    // called to set the keys in keyboard map
+    keyboard();
+    // Go throw the map and print each key being used
+    for (std::pair<const char, bool> node: keyPressed) {
+        if (isupper(node.first)) { // Use uppercase for normally Special cases like using shift or up arrow
+            fprintf(stdout, "Info:      - Special Key: %c\n", node.first);
+        } else {
+            fprintf(stdout, "Info:      -         Key: %c\n", node.first);
+        }
+    }
 
     fprintf(stdout, "Info: setting up variables for the loop\n");
 
