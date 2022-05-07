@@ -415,7 +415,7 @@ void rotate(int n) {
 int main(int argc, char** argv){
 
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGBA|GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
     glutInitWindowSize(512, 512);
 
     glutCreateWindow("FreeGLUT - OpenGL - Basic");
