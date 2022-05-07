@@ -68,8 +68,23 @@ GLint view_matrix_loc;
 GLuint program;
 
 // Matrix's
+/**
+ * Camera matrix <br>
+ * Use glm::lookAt to make
+ */
 glm::mat4 view_matrix(1.0f);
+/**
+ * 3d to 2d Matrix <br>
+ * Normally using glm::perspective to make
+ */
 glm::mat4 projection_matrix(1.0f);
+/**
+ * matrix to apply to things being dawn <br>
+ * Often use at less one of these <br>
+ *     - glm::scale <br>
+ *     - glm::translate <br>
+ *     - glm::rotate <br>
+ */
 glm::mat4 model_matrix(1.0f);
 
 // Add light components
@@ -126,7 +141,7 @@ char* ReadFile(const char* filename) {
 }
 
 /**
- * Initshiled Shaders
+ * Initialize Shaders
  * @note code from Yasmin and commit and some modification make by Timbre Freeman
  * @param v_shader the vertex shader path
  * @param f_shader the fragment shader path
@@ -330,7 +345,7 @@ void Display() {
     // Set view matrix
     float rotateAngleRadians = glm::radians(rotateAngle);
     if (top_view_flag) { // Top View
-        view_matrix = lookAt(
+        view_matrix = glm::lookAt(
                 glm::vec3(0.0, 8.0f, 0.0), // camera is at the top
                 glm::vec3(0, 0, 0), // look at the center
                 glm::vec3(
@@ -340,7 +355,7 @@ void Display() {
                 ) // rotating the camera
         );
     } else { // Normal View
-        view_matrix = lookAt(
+        view_matrix = glm::lookAt(
                 glm::vec3(
                         8.0f * sinf(rotateAngleRadians),
                         3.0f,
