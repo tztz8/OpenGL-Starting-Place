@@ -51,6 +51,10 @@ bool exitWindowFlag = false;
 #define TITLE_LENGTH 100
 
 // Window GL variables
+/**
+ * Aspect ratio <br>
+ * Proportion between the width and the height of the window
+ */
 GLfloat aspect = 0.0;
 
 // Booleans for current state
@@ -60,11 +64,23 @@ bool show_line_new = false;
 bool top_view_flag = false;
 
 // GL loc
+/**
+ * The location of the model matrix in the shader
+ */
 GLint matrix_loc;
+/**
+ * The location of the projection matrix in the shader
+ */
 GLint projection_matrix_loc;
+/**
+ * The location of the view (Camera) matrix in the shader
+ */
 GLint view_matrix_loc;
 
 // shader program
+/**
+ * The handle of the shader program object.
+ */
 GLuint program;
 
 // Matrix's
@@ -88,18 +104,33 @@ glm::mat4 projection_matrix(1.0f);
 glm::mat4 model_matrix(1.0f);
 
 // Add light components
+/**
+ * Vector of where the light position in 3d world
+ */
 glm::vec4 light_position(10.0, 6.0, 8.0, 1.0);
 
+/**
+ * Vector of where the light position in 3d canvas from using view (camera) matrix and 3d world position
+ */
 glm::vec4 light_position_camera;
 
 // uniform indices of light
+/**
+ * The location of the light position in the shader
+ */
 GLint light_position_loc;
 
 // Angle
+/**
+ * Angle used for rotating the view (camera)
+ */
 GLfloat rotateAngle = 0.0f;
 
 //          --- Pre-Def Methods ---
 
+/**
+ * Set the window flag to exit window
+ */
 void tellWindowToClose();
 
 //          --- Methods ---
@@ -131,6 +162,7 @@ char* ReadFile(const char* filename) {
     char* source = (char*)malloc(len + 1);
     if (source == nullptr) {
         printf("Unable to get memory to read file %s\n", filename);
+        tellWindowToClose();
         return nullptr;
     }
     fread(source, 1, len, infile);
@@ -421,7 +453,7 @@ void keyboard() {
     keyPressed['s'] = keyCurrentlyPressed['s'];
 
     keyCurrentlyPressed['S'] =
-            keyCurrentlyPressed['s'] &&
+            keyCurrentlyPressed['s'] && // glfwGetKey(window, GLFW_KEY_S ) == GLFW_PRESS
             (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ||
              glfwGetKey(window, GLFW_KEY_RIGHT_SHIFT) == GLFW_PRESS);
     if (!keyPressed['S'] && keyCurrentlyPressed['S']) {
