@@ -12,7 +12,7 @@
 
 // Include GLEW
 #include <GL/glew.h>
-
+#pragma comment(lib, "opengl32.lib")
 #include <GL/freeglut.h>
 
 // image lib (cscd377)
@@ -29,6 +29,9 @@
 #include "Cube.h"
 
 //          --- Filled's ---
+
+// devIL is setup flag
+bool devILIsSetup = false; // DO NOT CHANGE
 
 // Window GL variables
 /**
@@ -125,7 +128,7 @@ char* ReadFile(const char* filename) {
 
 
     if (!infile) {
-        printf("Unable to open file %s\n", filename);
+        fprintf(stderr, "Error: ReadFile: Unable to open file %s\n", filename);
         return nullptr;
     }
 
@@ -134,7 +137,7 @@ char* ReadFile(const char* filename) {
     fseek(infile, 0, SEEK_SET);
     char* source = (char*)malloc(len + 1);
     if (source == nullptr) {
-        printf("Unable to get memory to read file %s\n", filename);
+        fprintf(stderr, "Error: ReadFile: Unable to get memory to read file %s\n", filename);
         return nullptr;
     }
     fread(source, 1, len, infile);
@@ -179,13 +182,13 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
         char* log = (char*)malloc(len + 1);
 
         if (log == nullptr) {
-            printf("Was not able to get memory to get error code for compiled shader\n");
+            fprintf(stderr, "Error: initShaders: Was not able to get memory to get error code for compiled shader\n");
             exit(EXIT_FAILURE);
         }
 
         glGetShaderInfoLog(v, len, &len, log);
 
-        printf("Vertex Shader compilation failed: %s\n", log);
+        fprintf(stderr, "Error: initShaders: Vertex Shader compilation failed: %s\n", log);
 
         free(log);
     }
@@ -200,12 +203,12 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
         char* log = (char*)malloc(len + 1);
 
         if (log == nullptr) {
-            printf("Was not able to get memory to get error code for compiled shader\n");
+            fprintf(stderr, "Error: initShaders: Was not able to get memory to get error code for compiled shader\n");
             exit(EXIT_FAILURE);
         }
 
         glGetShaderInfoLog(f, len, &len, log);
-        printf("Vertex Shader compilation failed: %s\n", log);
+        fprintf(stderr, "Error: initShaders: Vertex Shader compilation failed: %s\n", log);
         free(log);
     }
 
@@ -223,12 +226,12 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
         char* log = (char*)malloc(len + 1);
 
         if (log == nullptr) {
-            printf("Was not able to get memory to get error code for compiled shader\n");
+            fprintf(stderr, "Error: initShaders: Was not able to get memory to get error code for compiled shader\n");
             exit(EXIT_FAILURE);
         }
 
         glGetProgramInfoLog(p, len, &len, log);
-        printf("Shader linking failed: %s\n", log);
+        fprintf(stderr, "Error: initShaders: Shader linking failed: %s\n", log);
         free(log);
     }
 
@@ -242,45 +245,50 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
 // * Load Texture
 // * @note code from Yasmin and commit and some modification make by Timbre Freeman
 // * @note (used devil to load the image)
+// * @note do not forget to uncommitted the include lib at the top and uncommitted the setup in main
 // * @param filename path to image file
 // * @return GL Texture ID
 // */
 //unsigned int loadTexture(const char* filename) {
+//    if (devILIsSetup) {
+//        ILboolean success;
+//        unsigned int imageID;
+//        ilGenImages(1, &imageID);
 //
-//    ILboolean success;
-//    unsigned int imageID;
-//    ilGenImages(1, &imageID);
+//        ilBindImage(imageID); /* Binding of DevIL image name */
+//        ilEnable(IL_ORIGIN_SET);
+//        ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+//        success = ilLoadImage((ILstring)filename);
 //
-//    ilBindImage(imageID); /* Binding of DevIL image name */
-//    ilEnable(IL_ORIGIN_SET);
-//    ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
-//    success = ilLoadImage((ILstring)filename);
+//        if (!success) {
+//            fprintf(stderr, "Error: loadTexture: Couldn't load the following texture file: %s", filename);
+//            // The operation was not sucessfull hence free image and texture
+//            ilDeleteImages(1, &imageID);
+//            return 0;
+//        }
 //
-//    if (!success) {
-//        printf("Couldn't load the following texture file: %s", filename);
-//        // The operation was not sucessfull hence free image and texture
+//        ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+//
+//        GLuint tid;
+//        glGenTextures(1, &tid);
+//        glBindTexture(GL_TEXTURE_2D, tid);
+//        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0,
+//                     GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
+//
+//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//
+//        glBindTexture(GL_TEXTURE_2D, 0);
+//
+//        /* Because we have already copied image data into texture data
+//        we can release memory used by image. */
+//
 //        ilDeleteImages(1, &imageID);
+//        return tid;
+//    } else {
+//        fprintf(stderr, "Error: loadTexture: DevIL is not setup");
 //        return 0;
 //    }
-//
-//    ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
-//
-//    GLuint tid;
-//    glGenTextures(1, &tid);
-//    glBindTexture(GL_TEXTURE_2D, tid);
-//    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, ilGetInteger(IL_IMAGE_WIDTH), ilGetInteger(IL_IMAGE_HEIGHT), 0,
-//                 GL_RGBA, GL_UNSIGNED_BYTE, ilGetData());
-//
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-//
-//    glBindTexture(GL_TEXTURE_2D, 0);
-//
-//    /* Because we have already copied image data into texture data
-//    we can release memory used by image. */
-//
-//    ilDeleteImages(1, &imageID);
-//    return tid;
 //}
 
 /**
@@ -456,19 +464,26 @@ void rotate(int n) {
  * @return Exit code (0 is often means no problems)
  */
 int main(int argc, char** argv){
-
+    fprintf(stdout, "Info: Initialise GLUT\n");
     glutInit(&argc, argv);
+    fprintf(stdout, "Info: Setting GLUT Display modes\n");
     glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH);
+    fprintf(stdout, "Info: Initialise a window size\n");
     glutInitWindowSize(512, 512);
 
+    fprintf(stdout, "Info: Create a window\n");
     glutCreateWindow("FreeGLUT - OpenGL - Basic");
 
+    fprintf(stdout,"Info: Initialize GLEW\n");
     if (glewInit()) {
-        printf("Unable to initialize GLEW ... exiting\n");
+        fprintf(stderr, "Error: Failed to initialize GLEW\n");
         return EXIT_FAILURE;
     }
 
+//    fprintf(stdout,"Info: Initialize DevIL\n");
 //    ilInit();
+//    devILIsSetup = true;
+    fprintf(stdout, "Info: Running Initialize method\n");
     Initialize(); // Our Initialize method
 
     // GL info
@@ -477,12 +492,18 @@ int main(int argc, char** argv){
     fprintf(stdout, "Info: GL Version (string) : %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
     fprintf(stdout, "Info: GLSL Version : %s\n", glGetString(GL_VERSION));
 
+    fprintf(stdout, "Info: GLUT Set display func\n");
     glutDisplayFunc(Display); // Tell glut our display method
+    fprintf(stdout, "Info: GLUT Set keyboard func\n");
     glutKeyboardFunc(keyboard); // Tell glut our keyboard method
+    fprintf(stdout, "Info: GLUT Set reshape func\n");
     glutReshapeFunc(Reshape); // Tell glut our reshape method
+    fprintf(stdout, "Info: GLUT Set rotate func (rotateAngle)\n");
     glutTimerFunc(100, rotate, 1); // First timer for rotate camera
+    fprintf(stdout, "Info: GLUT Load Main Loop\n");
     glutMainLoop(); // Start glut infinite loop
 
+    fprintf(stdout, "Info: Exiting\n");
     return EXIT_SUCCESS;
 }
 #pragma clang diagnostic pop

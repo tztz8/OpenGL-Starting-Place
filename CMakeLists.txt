@@ -26,11 +26,20 @@ if (UNIX AND NOT APPLE) # on linux glm is in /usr/include
 endif()
 
 # add glfw lib (note glfw is a submodule of this git repo)
-add_subdirectory(exernalLibraries/glfw)
-link_libraries(glfw ${GLFW_LIBRARIES})
+if (NOT MSVC)
+    find_package(glfw3 QUIET)
+    if (NOT glfw3_FOUND)
+        add_subdirectory(exernalLibraries/glfw)
+        link_libraries(glfw ${GLFW_LIBRARIES})
+    endif()
+else()
+    add_subdirectory(exernalLibraries/glfw)
+    link_libraries(glfw ${GLFW_LIBRARIES})
+endif()
 
 # Add Dev Image Lib
-#find_package(DevIL)
+#find_package(DevIL REQUIRED)
+#message(STATUS "DevIL included at ${IL_INCLUDE_DIR}")
 
 # basicGLFW project
 add_subdirectory(basicGLFW)
