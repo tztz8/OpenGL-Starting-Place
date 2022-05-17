@@ -9,6 +9,8 @@
 
 There is a [discussions](https://github.com/tztz8/OpenGL-Starting-Place/discussions) available for this repo at https://github.com/tztz8/OpenGL-Starting-Place/discussions
 
+> When cloning this repo remember use `--recursive` flag (Visual Studio git clone does it by default)
+
 ## Systems I use for testing
 
 I Used [EWU](https://www.ewu.edu/) ![Windows 10](readMeImges/windows.png) Windows computers and My [Manjaro](https://manjaro.org/) ![Linux](readMeImges/linux.png)Linux Computer and a ![VMware Workstation Player](readMeImges/vmware-workstation-player.png) VMware ![Windows 10](readMeImges/windows.png) Windows  for testing.
