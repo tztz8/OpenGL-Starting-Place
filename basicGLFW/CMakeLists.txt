@@ -22,6 +22,7 @@ elseif (MSVC) # Windows using microsoft visual code
     # Because microsoft visual code can't change working directory when using cmake these lines copy the files to the build directory so it like it in working directory
     file(COPY shader.frag DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     file(COPY shader.vert DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+    file(COPY bunny.obj.mtl DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     file(COPY bunny.obj DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
     file(COPY res/icon/cube.png DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/res/icon/)
     # Let the user know where the working directory for the program goes
