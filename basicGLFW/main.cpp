@@ -61,9 +61,21 @@ bool devILIsSetup = false; // DO NOT CHANGE
 GLfloat aspect = 0.0;
 
 // Booleans for current state
+/**
+ * Flag if to stop the rotate of the camera around the object
+ */
 bool stop_rotate = true;
+/**
+ * Flag to show the lines (not fill the trinalges)
+ */
 bool show_line = false;
+/**
+ * Flag to show the lines with GL_CULL_FACE (not fill the trinalges)
+ */
 bool show_line_new = false;
+/**
+ * Move the camera to look from above and change rotate to rotate the up vector
+ */
 bool top_view_flag = false;
 
 // GL loc
@@ -171,6 +183,7 @@ char* ReadFile(const char* filename) {
     fread(source, 1, len, infile);
     fclose(infile);
     source[len] = 0;
+    fprintf(stdout, "Info: ReadFile: \"%s\" is ready\n", filename);
     return (source);
 
 }
@@ -319,6 +332,7 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
 //        we can release memory used by image. */
 //
 //        ilDeleteImages(1, &imageID);
+//        fprintf(stdout, "Info: loadTexture: \"%s\" is ready\n", filename);
 //        return tid;
 //    } else {
 //        fprintf(stderr, "Error: loadTexture: DevIL is not setup");
@@ -361,7 +375,7 @@ void Initialize(){
  */
 void Display() {
     // Clear
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LEQUAL);
 

@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
+#include <cstdio>
+#include <cmath>
+#include <cstdlib>
+#include <cstring>
+#include <cassert>
 #include <GL/freeglut.h>
 
 #ifndef M_PI
@@ -10,7 +10,7 @@
 #endif
 
 
-#define GLM_FORCE_RADIANS 
+#define GLM_FORCE_RADIANS
 #define TWOPI 2*3.141592653589793238//4626433832795
 
 #include <glm/mat4x4.hpp> // glm::mat4
@@ -28,19 +28,22 @@ using namespace glm;
  */
 typedef struct _GLMmodel {
 
-  GLuint   numvertices;         /* number of vertices in model */
-  vec3* vertices;         /* array of vertices  */
+    GLuint   numvertices;         /* number of vertices in model */
+    vec3* vertices;         /* array of vertices  */
 
 
-  GLuint   numnormals;          /* number of normals in model */
-  vec3* normals;        /* array of normals */
- 
-  GLuint       numtriangles;    /* number of triangles in model */
+    GLuint   numnormals;          /* number of normals in model */
+    vec3* normals;        /* array of normals */
+
+    GLuint   numtextures;          /* number of textures in model */
+    vec2* textures;        /* array of tex coordinates */
+
+    GLuint       numtriangles;    /* number of triangles in model */
 
 
-  GLuint   numindices;
-  GLuint* indices;
- 
+    GLuint   numindices;
+    GLuint* indices;
+
 
 } GLMmodel;
 
@@ -57,7 +60,7 @@ glmDelete(GLMmodel* model);
  *
  * filename - name of the file containing the Wavefront .OBJ format data.  
  */
-GLMmodel* 
+GLMmodel*
 glmReadOBJ(const char* filename);
 
 
