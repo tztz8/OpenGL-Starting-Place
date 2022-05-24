@@ -308,7 +308,7 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
 //        success = ilLoadImage((ILstring)filename);
 //
 //        if (!success) {
-//            fprintf(stderr, "Error: loadTexture: Couldn't load the following texture file: %s", filename);
+//            fprintf(stderr, "Error: loadTexture: Couldn't load the following texture file: %s\n", filename);
 //            // The operation was not sucessfull hence free image and texture
 //            ilDeleteImages(1, &imageID);
 //            tellWindowToClose();
@@ -335,7 +335,7 @@ GLuint initShaders(const char* v_shader, const char* f_shader) {
 //        fprintf(stdout, "Info: loadTexture: \"%s\" is ready\n", filename);
 //        return tid;
 //    } else {
-//        fprintf(stderr, "Error: loadTexture: DevIL is not setup");
+//        fprintf(stderr, "Error: loadTexture: DevIL is not setup\n");
 //        tellWindowToClose();
 //        return 0;
 //    }
