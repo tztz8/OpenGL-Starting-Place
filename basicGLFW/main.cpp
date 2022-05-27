@@ -55,7 +55,7 @@ bool exitWindowFlag = false;
 #define TITLE_LENGTH 100
 
 // devIL is setup flag
-bool devILIsSetup = false; // DO NOT CHANGE
+[[maybe_unused]] bool devILIsSetup = false; // DO NOT CHANGE
 
 // Window GL variables
 /**
@@ -553,9 +553,9 @@ void APIENTRY glDebugOutput(GLenum source,
                             GLenum type,
                             unsigned int id,
                             GLenum severity,
-                            GLsizei length,
+                            [[maybe_unused]] GLsizei length,
                             const char *message,
-                            const void *userParam)
+                            [[maybe_unused]] const void *userParam)
 {
     // ignore non-significant error/warning codes
     if(id == 131169 || id == 131185 || id == 131218 || id == 131204) return;
@@ -697,6 +697,8 @@ int main() {
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
         glDebugMessageCallback(glDebugOutput, nullptr);
         glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+    } else {
+        fprintf(stderr, "Error: Opengl Debug not available\n");
     }
 #endif
 

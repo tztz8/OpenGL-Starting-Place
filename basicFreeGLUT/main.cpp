@@ -9,11 +9,16 @@
 // Normal Lib
 #include <cstdio>
 #include <cstdlib>
+#include <string>
+#include <iostream>
 
 // Include GLEW
 #include <GL/glew.h>
 #pragma comment(lib, "opengl32.lib")
 #include <GL/freeglut.h>
+#ifndef APIENTRY
+#define APIENTRY GLAPIENTRY
+#endif
 
 // image lib (cscd377)
 //#include <IL/il.h>
@@ -28,10 +33,12 @@
 // h file of this assignment
 #include "Cube.h"
 
+#define OPENGL_DEBUG_FOR_GLUT true
+
 //          --- Filled's ---
 
 // devIL is setup flag
-bool devILIsSetup = false; // DO NOT CHANGE
+[[maybe_unused]] bool devILIsSetup = false; // DO NOT CHANGE
 
 // Window GL variables
 /**
@@ -409,7 +416,7 @@ void Display()
  * @param x x of "mouse location in window relative coordinates when the key was pressed"
  * @param y y of "mouse location in window relative coordinates when the key was pressed"
  */
-void keyboard(unsigned char key, int x, int y){
+void keyboard(unsigned char key, [[maybe_unused]] int x, [[maybe_unused]] int y){
 
     switch (key){
         case 'q':case 'Q':
@@ -469,6 +476,84 @@ void rotate(int n) {
 
 }
 
+#if OPENGL_DEBUG_FOR_GLUT
+/**
+ * OpenGL Debug message callback to output
+ * @param source Where the error came from
+ * @param type The type of error
+ * @param id the id of the error
+ * @param severity how bad the error was
+ * @param length Unknown (my guest is the size of message)
+ * @param message the message of the error
+ * @param userParam Unknown
+ * @see https://learnopengl.com/In-Practice/Debugging
+ * @warning if severity is high tell glfw to close
+ */
+void APIENTRY glDebugOutput(GLenum source,
+                            GLenum type,
+                            unsigned int id,
+                            GLenum severity,
+                            [[maybe_unused]] GLsizei length,
+                            const char *message,
+                            [[maybe_unused]] const void *userParam)
+{
+    // ignore non-significant error/warning codes
+    if(id == 131169 || id == 131185 || id == 131218 || id == 131204) return;
+    std::cout << "Info: OpenGL Debug incoming (ID:" << id << ")" << std::endl;
+
+    std::string sourceMessage;
+    std::string typeMessage;
+    std::string severityMessage;
+
+    switch (source)
+    {
+        case GL_DEBUG_SOURCE_API:             sourceMessage = "Source: API"; break;
+        case GL_DEBUG_SOURCE_WINDOW_SYSTEM:   sourceMessage = "Source: Window System"; break;
+        case GL_DEBUG_SOURCE_SHADER_COMPILER: sourceMessage = "Source: Shader Compiler"; break;
+        case GL_DEBUG_SOURCE_THIRD_PARTY:     sourceMessage = "Source: Third Party"; break;
+        case GL_DEBUG_SOURCE_APPLICATION:     sourceMessage = "Source: Application"; break;
+        case GL_DEBUG_SOURCE_OTHER:           sourceMessage = "Source: Other"; break;
+        default:                              sourceMessage = "Source: Unknown"; break;
+    }
+
+    switch (type)
+    {
+        case GL_DEBUG_TYPE_ERROR:               typeMessage = "Type: Error"; break;
+        case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR: typeMessage = "Type: Deprecated Behaviour"; break;
+        case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR:  typeMessage = "Type: Undefined Behaviour"; break;
+        case GL_DEBUG_TYPE_PORTABILITY:         typeMessage = "Type: Portability"; break;
+        case GL_DEBUG_TYPE_PERFORMANCE:         typeMessage = "Type: Performance"; break;
+        case GL_DEBUG_TYPE_MARKER:              typeMessage = "Type: Marker"; break;
+        case GL_DEBUG_TYPE_PUSH_GROUP:          typeMessage = "Type: Push Group"; break;
+        case GL_DEBUG_TYPE_POP_GROUP:           typeMessage = "Type: Pop Group"; break;
+        case GL_DEBUG_TYPE_OTHER:               typeMessage = "Type: Other"; break;
+        default:                                typeMessage = "Type: Unknown"; break;
+    }
+
+    FILE* output;
+
+    switch (severity)
+    {
+        case GL_DEBUG_SEVERITY_HIGH:         severityMessage = "Severity: high"; output = stderr; break;
+        case GL_DEBUG_SEVERITY_MEDIUM:       severityMessage = "Severity: medium"; output = stderr; break;
+        case GL_DEBUG_SEVERITY_LOW:          severityMessage = "Severity: low"; output = stdout; break;
+        case GL_DEBUG_SEVERITY_NOTIFICATION: severityMessage = "Severity: notification"; output = stdout; break;
+        default:                             severityMessage = "Severity: Unknown"; output = stderr; break;
+    }
+
+    fprintf(output, "-------OpenGL Debug--------\n"
+                    "Debug message (ID:%u): %s\n"
+                    "%s\n%s\n%s\n\n",
+            id, message,
+            sourceMessage.c_str(),
+            typeMessage.c_str(),
+            severityMessage.c_str());
+    if (severity == GL_DEBUG_SEVERITY_HIGH) {
+        exit(EXIT_FAILURE);
+    }
+}
+#endif
+
 // ------------------ Main ---------------------------
 
 /**
@@ -480,6 +565,10 @@ void rotate(int n) {
 int main(int argc, char** argv){
     fprintf(stdout, "Info: Initialise GLUT\n");
     glutInit(&argc, argv);
+#if OPENGL_DEBUG_FOR_GLUT
+    fprintf(stdout, "Info: Setting Init Context Flag Debug\n");
+    glutInitContextFlags(GLUT_DEBUG);
+#endif
     fprintf(stdout, "Info: Setting GLUT Display modes\n");
     glutInitDisplayMode(GLUT_RGBA|GLUT_DOUBLE|GLUT_DEPTH|GLUT_STENCIL);
     fprintf(stdout, "Info: Initialise a window size\n");
@@ -493,6 +582,20 @@ int main(int argc, char** argv){
         fprintf(stderr, "Error: Failed to initialize GLEW\n");
         return EXIT_FAILURE;
     }
+
+#if OPENGL_DEBUG_FOR_GLUT
+    fprintf(stdout,"Info: Initialize GL Debug Output\n");
+    if (glDebugMessageCallback)
+    {
+        glEnable(GL_DEBUG_OUTPUT);
+        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+        glDebugMessageCallback(glDebugOutput, nullptr);
+        GLuint unusedIds = 0;
+        glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, &unusedIds, GL_TRUE);
+    } else {
+        fprintf(stderr, "Error: Opengl Debug not available\n");
+    }
+#endif
 
 //    fprintf(stdout,"Info: Initialize DevIL\n");
 //    ilInit();
